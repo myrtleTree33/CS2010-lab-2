@@ -1,16 +1,15 @@
 import java.io.*;
 import java.util.*;
 
-import javax.swing.text.Element;
-import javax.swing.text.DefaultEditorKit.InsertBreakAction;
-
-import org.junit.Ignore;
-
 /**
  * Class for a binary tree that stores type E objects. Node is a public class.
  **/
 public class BinaryTree<E> implements Serializable {
 
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   // Data Field
   /** The root of the binary tree */
   protected Node<E> root;
@@ -132,7 +131,6 @@ public class BinaryTree<E> implements Serializable {
    * @param node
    *          The local root
    * @param depth
-   *          The depth
    * @param sb
    *          The string buffer to save the output
    */
@@ -168,6 +166,12 @@ public class BinaryTree<E> implements Serializable {
     }
     
     ArrayList<NodePath> paths = _convertStrToTreeMap(sBuilder.toString());
+    
+    // case of empty tree.  then return empty tree.
+    if (paths.size() == 0) {
+      return new BinaryTree<String>();
+    }
+    
     BinaryTree<String> binaryTree = new BinaryTree<String>(new Node<String>("-1"));
     for (int i = 0; i < paths.size(); i++) {
       NodePath curr = paths.get(i);
@@ -180,27 +184,25 @@ public class BinaryTree<E> implements Serializable {
       }
       insertData(curr.data, curr.path, binaryTree.root);
     }
-    _printDspStatements(binaryTree);
-    return new BinaryTree<String>();
+    return binaryTree;
   }
   
-  public static void _printDspStatements(BinaryTree<String> binaryTree) {
-    Boolean isCorrect = isValid(binaryTree);
-    if (!isCorrect) {
-      System.out.println("not complete");
-    }
-    System.out.println(binaryTree.levelorderToString());
-    
-  }
   
   public static Boolean isValid(BinaryTree<String> bTree) {
+    
+    if (bTree.height() == 0) {
+      return true;
+    }
+    
     if (bTree.root == null) {
       return false;
     }
+    System.out.println("---");
     return _checkValid(bTree.root);
   }
   
   private static Boolean _checkValid(Node<String> node) {
+    System.out.println("test");
     if (node.data.equals("-1")) {
       return false;
     }
@@ -238,6 +240,7 @@ public class BinaryTree<E> implements Serializable {
     String raw = dataStr.replaceAll("\\(", "")
                         .replaceAll("\\)", "");
     List<String> nodesList = Arrays.asList(raw.split(" "));
+    
     ArrayList<NodePath> paths = new ArrayList<NodePath>();
     for (int i = 0; i < nodesList.size(); i++) {
       if (nodesList.get(i)

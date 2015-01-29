@@ -1,0 +1,32 @@
+CS2010 Laboratory 2
+=====================================
+
+A0108165J
+
+TONG Haowen Joel
+
+
+## Description
+
+Lab 2 submission for CS2010, which is acceptance of binary tree in file form
+
+
+## Test files
+
+Test files use `Junit` and `Maven`.
+
+Running of test files and generation of output is done by:
+
+    $ mvn test
+
+The description of the files as follow:
+
+| File | Description |
+|------|-------------|
+| in1.txt | This file tests for base case, which is the example given. |
+| in2.txt | This file tests for absence of root node. |
+| in3.txt | This file tests the acceptance of a complete tree. |
+| in4.txt | This file tests for absence of leaf node. |
+| in5.txt | This file tests for (1) Multiple nodes down, (2) Root node down (3) Node in between structure down.  The test structure is a tree of height 3. |
+| in6.txt | Tests if an empty tree can be produced. |
+| in7.txt | Tests if single unbalanced tree on left can be produced. |

@@ -1,10 +1,8 @@
-import static org.junit.Assert.*;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,18 +36,31 @@ public class BinaryTreeTest {
    */
   @Test
   public void testReadBinaryTree1() {
-    BinaryTree<String> bTree = new BinaryTree<String>();
-    String[] filePathStrings = {"a.txt", "b.txt"};
+    BinaryTree<String> bTree;
+    String[] filePathStrings = {"in1", "in2", "in3", "in4", "in5", "in6", "in7"};
     
     for (String filepath : filePathStrings) {
       try {
-        bTree.readBinaryTree1(new BufferedReader(new FileReader(filepath)));
+        bTree = BinaryTree.readBinaryTree1(new BufferedReader(new FileReader("in/" + filepath + ".txt")));
+        _writeToFile("out/out" + filepath.substring(2) + ".txt", bTree);
       } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
    
+  }
+
+  public static void _writeToFile(String filename, BinaryTree<String> binaryTree) throws IOException {
+    FileWriter fWriter = new FileWriter(filename, false);
+    BufferedWriter out = new BufferedWriter(fWriter);
+    
+    Boolean isCorrect = BinaryTree.isValid(binaryTree);
+    if (!isCorrect) {
+      out.write("not complete\n");
+    }
+    out.write(binaryTree.levelorderToString());
+    out.close();
   }
 
 }
